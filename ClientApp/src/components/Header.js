@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+// All styling should be ideally moved into .css files
+// Hope you enjoyed the puns!
 export function Header() {
   return (
     <div style={{textAlign: "center"}}>

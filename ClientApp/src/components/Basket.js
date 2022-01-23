@@ -1,67 +1,63 @@
-import React, { Component } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+// All styling should be ideally moved into .css files
 export function Basket(props) {
 
+  // Hook to update basket to update when state changes
   const [basketData, setBasketData] = useState(null);
 
+  // When shopstate changes, hook sends request to API to calculate new state of basket
   useEffect(
     () => {
-      const id = props.productData ? props.productData[0].count: 0;
-      const fetchData = async() => {
-        const response = await fetch('basket/' + GetRequestString());
+      const fetchData = async(code) => {
+        const response = await fetch('basket/' + code);
         const json = await response.json();
-        console.log(json);
         setBasketData(json);
       }
-      fetchData();      
+
+      const uriCode = getURICode(props.shopState);
+      if (uriCode) {
+        fetchData(uriCode);
+      } else {
+        setBasketData(null);
+      }          
     }, 
-    [props.productData]
+    [props.shopState]
   )
 
-  return (
-    <div style={{width: "100%", paddingTop: "2%", paddingLeft: "5%", paddingBottom: "1%", backgroundColor: "#ccc", marginTop: "10px", minHeight: "100px" }}>
-      { basketData ? 
-        <div>
-          {
-            basketData.items.map(item => 
-              <p>{item}</p>
-            )
-          }
-          <p><b>Subtotal: </b>{basketData.subTotal}</p> 
-          <br></br>
-          {
-            basketData.discounts.map(item => 
-              <p>{item}</p>
-            )
-          }
-          <p><b>Total:</b> {basketData.total}</p>
+  // render one item in the basket
+  function renderBasketItem(item) {
+    return <p key={item.description}>{item.amount}x {item.priceString} {item.description}</p>
+  }
 
-        </div>        
-       : 
-       <p><b>Basket Is Empty</b></p>
-      }
-    </div>
-  );
-
-  function GetRequestString() {
-    if (!props.productData) { return ""; }
+  // converts basket's state to string format to send to API: 0-2_1-4_2-1
+  // first value in each pair is product ID, second value is amount of that product
+  function getURICode(input) {
+    if (!input) { return null; }
     var stringBuilder = "";
-    props.productData.filter(p => p.count > 0).map(p =>
+    input.filter(p => p.count > 0).map(p =>
       stringBuilder += p.productId + "-" + p.count + "_"
       );
     return stringBuilder.slice(0, -1);
   }
-  
-  /*
+
   return (
-    <div style={{width: "100%", paddingTop: "2%", paddingLeft: "5%", paddingBottom: "1%", backgroundColor: "#ccc", marginTop: "10px" }}>
-      <p>2x Cheese £2.40</p>
-      <p>2x Cheese £2.40</p>
-      <p><b>Subtotal:</b> £5.20</p>
-      <p>1x BOGOF Cheese -£1.20</p>
-      <p><b>Final total: </b> £5.20</p>
-    </div>
+    <div>
+      <h3 style={{marginTop: "25px"}}>Basket</h3>
+      <div style={{width: "100%", paddingTop: "2%", paddingLeft: "5%", paddingBottom: "1%", backgroundColor: "#ccc", marginTop: "10px", minHeight: "100px" }}>
+        { basketData ? 
+          <div>
+            { basketData.products.map(item => renderBasketItem(item)) }
+            <p><b>Subtotal: </b>{basketData.subTotal}</p> 
+            <br></br>
+            { basketData.discounts.map(item => renderBasketItem(item)) }
+            <p><b>Total:</b> {basketData.total}</p>
+          </div>        
+        : 
+        <p><b>Basket Is Empty</b></p>
+        }
+      </div>
+    </div>    
   );
-  */
+
 }

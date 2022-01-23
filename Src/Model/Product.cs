@@ -1,8 +1,9 @@
 using System;
 
-namespace ShoppingBasket {
-    public class Product {
-
+namespace ShoppingBasket 
+{
+    public class Product 
+    {
         public int ProductId { get; set; }
 
         public string Name { get; set; }
