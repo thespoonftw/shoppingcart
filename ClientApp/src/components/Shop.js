@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Products } from './Products';
 import { Offers } from './Offers';
 import { Basket } from './Basket';
+import { Checkout } from './Checkout';
 
 export function Shop() {
 
   // useState hook for the current state of the shop
   const [shopState, setShopState] = useState(null);
+  const [isBasketOpen, setIsBasketOpen] = useState(false);
 
   // hook called once when the component is mounted. Api initialises state of shop
   useEffect(
@@ -29,9 +31,13 @@ export function Shop() {
         <Products shopState={shopState} setShopState={setShopState}/>
         <div className="col-md">
           <Offers />
-          <Basket shopState={shopState}/>
+          <Checkout setIsBasketOpen={setIsBasketOpen}/>
         </div>
       </div>
+
+      <Basket isBasketOpen={isBasketOpen} setIsBasketOpen={setIsBasketOpen} shopState={shopState} />
+
+      
     </div>
   );
 }

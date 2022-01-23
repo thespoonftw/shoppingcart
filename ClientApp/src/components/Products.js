@@ -7,8 +7,8 @@ export function Products(props) {
   // render one of the items in the product list
   function renderProduct(product) {
     return (
-      <div key={product.productId} style={{width: "100%", paddingTop: "5%", paddingLeft: "5%", paddingBottom: "5%", backgroundColor: "#ccc", marginTop: "10px" }}>
-        <div style={{position: "absolute", backgroundColor: "white", marginLeft: "40%", height: "15%", width: "45%" }}>
+      <div key={product.productId} style={{width: "100%", paddingLeft: "5%", marginTop: "10px" }}>
+        <div style={{position: "absolute", marginLeft: "30%", height: "15%", width: "45%" }}>
           <div style={{marginLeft: "5%", marginTop: "5%"}}>
             <h4>{product.name}</h4>
             <p>{product.priceString}</p>
@@ -26,7 +26,7 @@ export function Products(props) {
               }>+</Button>
           </div>          
         </div>
-        <img alt={product.name} src={product.imageUrl} style={{width: "40%" }} /> 
+        <img alt={product.name} src={product.imageUrl} style={{width: "30%" }} /> 
       </div>
     );
   }
