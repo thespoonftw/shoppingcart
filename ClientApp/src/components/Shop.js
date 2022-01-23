@@ -1,36 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Product } from './Product';
+import { Offer } from './Offer';
+import { Basket } from './Basket';
+import { useState } from 'react';
 
-export class Shop extends Component {
-  static displayName = Shop.name;
+export function Shop() {
 
-  constructor(props) {
-    super(props);
-  }
+  const [productData, setProductData] = useState(null);
 
-  incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1
-    });
-  }
+  useEffect(
+    () => {
+      const fetchData = async() => {
+        const response = await fetch('product');
+        const json = await response.json();
+        setProductData(json);
+      }
+      fetchData();      
+    }, 
+    []
+  )
 
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md">
-            <Product src="https://images.pexels.com/photos/4775241/pexels-photo-4775241.jpeg" />
-            <Product src="https://images.pexels.com/photos/7573152/pexels-photo-7573152.jpeg" />
-            <Product src="https://images.pexels.com/photos/10165775/pexels-photo-10165775.jpeg" />
-            <Product src="https://images.pexels.com/photos/8743923/pexels-photo-8743923.jpeg" />
-            <Product src="https://images.pexels.com/photos/5865461/pexels-photo-5865461.jpeg" />
-
-          </div>
-          <div className="col-md">
-            <img src="https://i.imgur.com/NFS0WeC.jpg" style={{width: "100%"}} />
-          </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md">
+          <h3>Products</h3>         
+          {productData ? productData.map(p => <Product key={p.productId} data={p} updateCart={UpdateCart} />) : <></>}
+        </div>
+        <div className="col-md">
+          <h3>Offers</h3>
+          <Offer text="When you buy a cheese, get a second cheese free!" />
+          <Offer text="When you buy a Soup, you get a half price Bread!" />
+          <Offer text="Get a third off Butter!" />
+          <h3 style={{marginTop: "25px"}}>Basket</h3>
+          <Basket productData={productData}/>
         </div>
       </div>
-    );
+    </div>
+  );
+
+  function UpdateCart(productId, amount) {
+    var newData = productData.slice();
+    newData[productId].count = amount;
+    setProductData(newData);
+    //console.log("update cart: " + productId + " " + amount);
+    //console.log(productData);
   }
+
 }
