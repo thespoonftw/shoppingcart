@@ -2,7 +2,7 @@ using System;
 
 namespace ShoppingBasket 
 {
-    public static class Money 
+    public static class PriceHelper 
     {
         public static string ToPriceString(this int input) 
         {

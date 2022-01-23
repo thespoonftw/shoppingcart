@@ -2,8 +2,9 @@ using System;
 
 namespace ShoppingBasket 
 {
-    public class DatabaseReader : IDatabaseReader
+    public class DatabaseService : IDatabaseService
     {
+        // ideally these would be read from SQL database
         private readonly Product[] products = new[]
         {
             new Product() 

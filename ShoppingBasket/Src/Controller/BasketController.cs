@@ -10,11 +10,11 @@ namespace ShoppingBasket.Controllers
     [ApiController]
     public class BasketController : ControllerBase 
     {
-        private BasketService basketService;
+        private IBasketService basketService;
 
-        public BasketController()
+        public BasketController(IBasketService basketService)
         {
-            basketService = new BasketService();
+            this.basketService = basketService;
         }
 
         [HttpGet]

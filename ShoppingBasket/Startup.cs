@@ -17,6 +17,9 @@ namespace ShoppingBasket {
         public void ConfigureServices(IServiceCollection services) {
 
             services.AddControllersWithViews();
+            services.AddSingleton<IBasketService, BasketService>();
+            services.AddSingleton<IDatabaseService, DatabaseService>();
+            services.AddSingleton<IDiscountService, DiscountService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => {

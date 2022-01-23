@@ -5,14 +5,23 @@ using System.Linq;
 
 namespace ShoppingBasket 
 {
-    public class BasketService
+    public class BasketService : IBasketService
     {
+        IDatabaseService databaseService;
+        IDiscountService discountService;
+
+        public BasketService(IDatabaseService databaseService, IDiscountService discountService)
+        {
+            this.databaseService = databaseService;
+            this.discountService = discountService;
+        }
+
         public Basket CalculateBasket(string uriCode)
         {            
             var dict = FillDictionary(uriCode);
             var products = GetBasketProducts(dict);
             var subTotal = GetSubtotal(products);
-            var discounts = GetBasketDiscounts(dict);
+            var discounts = discountService.GetDiscounts(dict);
             var total = GetTotal(subTotal, discounts);
 
             return new Basket()
@@ -41,10 +50,9 @@ namespace ShoppingBasket
         private BasketItem[] GetBasketProducts(Dictionary<int, int> basketDictionary)
         {
             var productList = new List<BasketItem>();
-            var database = new DatabaseReader();
             foreach (var pair in basketDictionary)
             {
-                var product = database.GetProduct(pair.Key);
+                var product = databaseService.GetProduct(pair.Key);
                 productList.Add(
                     new BasketItem()
                     {
@@ -60,16 +68,6 @@ namespace ShoppingBasket
         private int GetSubtotal(BasketItem[] products)
         {
             return products.Sum(p => p.SumPrice);
-        }
-
-        private BasketItem[] GetBasketDiscounts(Dictionary<int, int> basketDictionary)
-        {
-            var discounter = new BasketDiscounter(basketDictionary);
-            // ideally configure these from the database model
-            discounter.ApplyPercentageDiscount(4);
-            discounter.ApplyBogofDiscount(2);
-            discounter.ApplyComboDiscount(3, 0);
-            return discounter.GetDiscounts();
         }
 
         private int GetTotal(int subtotal, BasketItem[] discounts)

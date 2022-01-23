@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ShoppingBasket.Controllers 
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController]    
     public class ProductController : ControllerBase 
     {        
         [HttpGet]
+        [Route("[controller]")]
         public IEnumerable<Product> Get() 
         {
-            var database = new DatabaseReader();
+            var database = new DatabaseService();
             return database.GetAllProducts();
         }
     }
