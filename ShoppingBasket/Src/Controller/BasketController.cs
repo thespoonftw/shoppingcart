@@ -18,10 +18,11 @@ namespace ShoppingBasket.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/{uriCode}")]
-        public Basket Get(string uriCode) 
+        [Route("[controller]/{uri}")]
+        public Basket Get(string uri) 
         {
-            return basketService.CalculateBasket(uriCode);
+            var basketDictionary = UriConverter.BasketStringToDictionary(uri);
+            return basketService.CalculateBasket(basketDictionary);
         }        
     }
 }

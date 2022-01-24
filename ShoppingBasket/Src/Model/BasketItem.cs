@@ -2,6 +2,9 @@ using System;
 
 namespace ShoppingBasket 
 {
+    /// <summary>
+    /// One item in a basket. Could be a discount or a product.
+    /// </summary>
     public class BasketItem 
     {
         public int Amount { get; set; }

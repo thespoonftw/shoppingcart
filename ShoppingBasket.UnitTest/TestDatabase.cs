@@ -3,6 +3,7 @@ using ShoppingBasket;
 
 namespace ShoppingBasket.UnitTest
 {
+    /*
     [TestClass]
     public class TestDatabase
     {
@@ -28,4 +29,5 @@ namespace ShoppingBasket.UnitTest
 
         }
     }
+    */
 }

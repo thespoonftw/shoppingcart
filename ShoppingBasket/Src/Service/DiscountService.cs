@@ -26,7 +26,6 @@ namespace ShoppingBasket
 
         private class Discounter
         {
-
             public List<BasketItem> Discounts { get; private set; }
 
             private Dictionary<int, int> basketDictionary;

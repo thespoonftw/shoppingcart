@@ -16,12 +16,11 @@ namespace ShoppingBasket
             this.discountService = discountService;
         }
 
-        public Basket CalculateBasket(string uriCode)
+        public Basket CalculateBasket(Dictionary<int, int> basketItems)
         {            
-            var dict = FillDictionary(uriCode);
-            var products = GetBasketProducts(dict);
+            var products = GetBasketProducts(basketItems);
             var subTotal = GetSubtotal(products);
-            var discounts = discountService.GetDiscounts(dict);
+            var discounts = discountService.GetDiscounts(basketItems);
             var total = GetTotal(subTotal, discounts);
 
             return new Basket()
@@ -31,21 +30,7 @@ namespace ShoppingBasket
                 Products = products,
                 Discounts = discounts,
             };
-        }
-
-        private Dictionary<int, int> FillDictionary(string uriCode)
-        {
-            var returner = new Dictionary<int, int>();
-            var split = uriCode.Split('_');
-            foreach (var s in split)
-            {
-                var pair = s.Split('-');
-                var product = int.Parse(pair[0]);
-                var amount = int.Parse(pair[1]);
-                returner.Add(product, amount);
-            }
-            return returner;
-        }        
+        }      
 
         private BasketItem[] GetBasketProducts(Dictionary<int, int> basketDictionary)
         {
