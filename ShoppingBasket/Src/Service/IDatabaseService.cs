@@ -1,6 +1,4 @@
-using System;
-
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     public interface IDatabaseService 
     {

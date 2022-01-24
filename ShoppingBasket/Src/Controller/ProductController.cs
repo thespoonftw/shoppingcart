@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ShoppingBasket.Controllers 
+namespace ShoppingBasket.Controllers
 {
     [ApiController]    
     public class ProductController : ControllerBase 
-    {        
+    {
+        private IDatabaseService databaseService;
+
+        public ProductController(IDatabaseService databaseService)
+        {
+            this.databaseService = databaseService;
+        }
+
+        /// <summary>
+        /// Gets all products in the store from the database
+        /// </summary>
+        /// <returns>Collection of available products</returns>
         [HttpGet]
         [Route("[controller]")]
         public IEnumerable<Product> Get() 
         {
-            var database = new DatabaseService();
-            return database.GetAllProducts();
+            return databaseService.GetAllProducts();
         }
     }
 }

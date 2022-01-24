@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     public interface IDiscountService 
     {

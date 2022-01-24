@@ -1,9 +1,4 @@
-using ShoppingBasket.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     /// <summary>
     /// Data structure for a basket as displayed on the user's screen when they proceed to checkout.

@@ -1,6 +1,4 @@
-using System;
-
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     /// <summary>
     /// A product as shown in the shop, stored in database.

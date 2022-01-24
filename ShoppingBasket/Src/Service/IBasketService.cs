@@ -1,9 +1,4 @@
-using ShoppingBasket.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     public interface IBasketService
     {

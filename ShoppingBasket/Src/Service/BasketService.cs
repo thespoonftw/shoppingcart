@@ -1,10 +1,9 @@
-using ShoppingBasket.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     public class BasketService : IBasketService
     {

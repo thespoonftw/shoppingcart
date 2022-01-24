@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ShoppingBasket.Controllers 
+namespace ShoppingBasket.Controllers
 {
     [ApiController]
     public class BasketController : ControllerBase 
@@ -17,11 +12,16 @@ namespace ShoppingBasket.Controllers
             this.basketService = basketService;
         }
 
+        /// <summary>
+        /// Converts the URI arguement into a basket object to be displayed on the front end.
+        /// </summary>
+        /// <param name="basketString">represents the state of the user's basket</param>
+        /// <returns>Basket containing discounts and prices</returns>
         [HttpGet]
-        [Route("[controller]/{uri}")]
-        public Basket Get(string uri) 
+        [Route("[controller]/{basketString}")]
+        public Basket Get(string basketString) 
         {
-            return basketService.CalculateBasket(uri);
+            return basketService.CalculateBasket(basketString);
         }        
     }
 }

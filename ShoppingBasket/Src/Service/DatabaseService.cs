@@ -1,6 +1,6 @@
 using System;
 
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     public class DatabaseService : IDatabaseService
     {
@@ -44,6 +44,7 @@ namespace ShoppingBasket
             },
         };
 
+        // Database calls would be async
         public Product[] GetAllProducts()
         {
             return products;

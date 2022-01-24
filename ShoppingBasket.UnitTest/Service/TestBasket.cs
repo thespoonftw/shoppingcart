@@ -9,23 +9,26 @@ namespace ShoppingBasket.UnitTest
     {
         private BasketService sut;
         private Mock<IDatabaseService> databaseServiceMock;
+        private Mock<IDiscountService> discountServiceMock;
 
         [TestInitialize]
         public void TestInitialise()
         {
             databaseServiceMock = new Mock<IDatabaseService>();
+            discountServiceMock = new Mock<IDiscountService>();
+
             var productA = new Product() { ProductId = 0, Price = 100 };
             var productB = new Product() { ProductId = 1, Price = 50 };
             databaseServiceMock.Setup(p => p.GetProduct(0)).Returns(productA);
             databaseServiceMock.Setup(p => p.GetProduct(1)).Returns(productB);
 
-            sut = new BasketService(databaseServiceMock.Object, new Mock<IDiscountService>().Object);
+            sut = new BasketService(databaseServiceMock.Object, discountServiceMock.Object);
         }
 
         [DataTestMethod]
         [DataRow("")]
         [DataRow("1x3")]
-        public void Basket_Is_Empty(string basketString)
+        public void CalculateBasket_Is_Empty(string basketString)
         {
             var basket = sut.CalculateBasket(basketString);
             Assert.AreEqual(basket.Products.Length, 0);
@@ -42,7 +45,7 @@ namespace ShoppingBasket.UnitTest
         [DataRow("_")]
         [DataRow("x")]
         [DataRow("-1x5")]
-        public void Basket_Throws_ArguementException(string basketString)
+        public void CalculateBasket_Throws_ArguementException(string basketString)
         {
             Assert.ThrowsException<System.ArgumentException>(() => sut.CalculateBasket(basketString));
         }
@@ -51,7 +54,7 @@ namespace ShoppingBasket.UnitTest
         [DataRow("1x0", 1, 100)]
         [DataRow("2x0_3x1", 2, 350)]
         [DataRow("2x0_3x1_1x2", 2, 350)]
-        public void Basket_Values_Correct(string basketString, int productCount, int totalPrice)
+        public void CalculateBasket_Verify(string basketString, int productCount, int totalPrice)
         {
             var basket = sut.CalculateBasket(basketString);
             Assert.AreEqual(basket.SubTotal, totalPrice);
@@ -63,17 +66,17 @@ namespace ShoppingBasket.UnitTest
         [DataTestMethod]
         [DataRow("1x0", 100, 50)]
         [DataRow("2x0_3x1", 350, 300)]
-        public void Basket_With_Discount_Values_Correct(string basketString, int subtotal, int total)
+        public void CalculateBasket_Verify_With_Discount(string basketString, int subtotal, int total)
         {
-            var mockDiscount = new Mock<IDiscountService>();
             var discountItem = new BasketItem[] { new BasketItem() { Amount = 1, Price = 50 } };
-            mockDiscount.Setup(p => p.GetDiscounts(It.IsAny<Dictionary<int, int>>())).Returns(discountItem);
-            var discountService = new BasketService(databaseServiceMock.Object, mockDiscount.Object);
+            discountServiceMock.Setup(p => p.GetDiscounts(It.IsAny<Dictionary<int, int>>())).Returns(discountItem);
 
-            var basket = discountService.CalculateBasket(basketString);
+            var basket = sut.CalculateBasket(basketString);
             Assert.AreEqual(basket.SubTotal, subtotal);
             Assert.AreEqual(basket.Total, total);
             Assert.AreEqual(basket.Discounts.Length, 1);
+
+            discountServiceMock.Verify(p => p.GetDiscounts(It.IsAny<Dictionary<int, int>>()), Times.Once);
         }
     }
 }

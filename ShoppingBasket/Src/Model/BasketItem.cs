@@ -1,6 +1,4 @@
-using System;
-
-namespace ShoppingBasket 
+namespace ShoppingBasket
 {
     /// <summary>
     /// One set of items in a basket. Eg. 3x Bread. Could be a discount or a product.
