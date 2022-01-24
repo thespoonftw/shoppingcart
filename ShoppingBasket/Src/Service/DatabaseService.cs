@@ -51,6 +51,8 @@ namespace ShoppingBasket
 
         public Product GetProduct(int productId) 
         {
+            if (productId < 0) throw new ArgumentOutOfRangeException("productId");
+            if (productId >= products.Length) return null;
             return products[productId];
         }
     }

@@ -1,12 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "xRRqRJf5Tkk7V6XuBxjMAgN3juujrSqkihtBItHIIyiiVVYAd5F+NQLQ6ao4O4yEUgULtCpx2LWcUJbzkzlbSQ==",
+  "dgSpecHash": "4CBSEbLjeZbCEPpLnuBKReOfQYeXqYQ2/hsycJN6Rw4564maU00/siAUdfi3M3zLjkiLD6j3DsojGAwt1ZQmCA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tablespoon\\Desktop\\shopping cart\\ShoppingBasket.UnitTest\\ShoppingBasket.UnitTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tablespoon\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
+    "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\5.0.11\\microsoft.aspnetcore.spaservices.extensions.5.0.11.nupkg.sha512",
     "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
     "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
+    "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\5.0.0\\microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\5.0.0\\microsoft.extensions.fileproviders.physical.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
+    "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",
     "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Tablespoon\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

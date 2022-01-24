@@ -6,7 +6,9 @@ namespace ShoppingBasket
     {
         public static string ToPriceString(this int input) 
         {
-            return $"£{input / 100}.{(input % 100).ToString("00")}";
+            var pos = Math.Abs(input);
+            var negative = input < 0 ? "-" : "";
+            return $"{negative}£{pos / 100}.{pos % 100:00}";
         }
     }
 }
