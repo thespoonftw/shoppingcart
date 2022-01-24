@@ -3,7 +3,7 @@ using System;
 namespace ShoppingBasket 
 {
     /// <summary>
-    /// One item in a basket. Could be a discount or a product.
+    /// One set of items in a basket. Eg. 3x Bread. Could be a discount or a product.
     /// </summary>
     public class BasketItem 
     {

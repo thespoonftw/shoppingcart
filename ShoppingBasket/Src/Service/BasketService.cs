@@ -8,8 +8,8 @@ namespace ShoppingBasket
 {
     public class BasketService : IBasketService
     {
-        IDatabaseService databaseService;
-        IDiscountService discountService;
+        private IDatabaseService databaseService;
+        private IDiscountService discountService;
 
         public BasketService(IDatabaseService databaseService, IDiscountService discountService)
         {
@@ -36,8 +36,8 @@ namespace ShoppingBasket
 
         private Dictionary<int, int> BasketStringToDictionary(string basketString)
         {
-            if (basketString == null) throw new ArgumentException();
-            if (!Regex.IsMatch(basketString, @"^[0-9_x]*$")) throw new ArgumentException();
+            if (basketString == null) throw new ArgumentException("Null Input");
+            if (!Regex.IsMatch(basketString, @"^[0-9_x]*$")) throw new ArgumentException("Invalid Characters");
 
             try
             {
@@ -59,13 +59,13 @@ namespace ShoppingBasket
             }
             catch
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid Syntax");
             }
 
         }
 
         private BasketItem[] GetBasketProducts(Dictionary<int, int> basketDictionary)
-            {
+        {
             var productList = new List<BasketItem>();
             foreach (var pair in basketDictionary)
             {

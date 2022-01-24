@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingBasket;
 
 namespace ShoppingBasket.UnitTest
 {
@@ -16,7 +15,7 @@ namespace ShoppingBasket.UnitTest
 
         [DataTestMethod]
         [DataRow(-1)]
-        [DataRow(9999)]
+        [DataRow(9999)] // assumed to be higher than max product id
         public void GetProduct_Is_Null(int productId)
         {
             Assert.IsNull(sut.GetProduct(productId));

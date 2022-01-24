@@ -16,9 +16,10 @@ namespace ShoppingBasket
 
         public BasketItem[] GetDiscounts(Dictionary<int, int> basketDictionary)
         {
+            if (basketDictionary == null) return Array.Empty<BasketItem>();
             var discounter = new Discounter(basketDictionary, databaseService);
-            // ideally these discounts will be configurable from config or a database
-            discounter.ApplyPercentageDiscount(4);
+            // ideally these discounts will be read from a config or database
+            discounter.ApplyOneThirdDiscount(4);
             discounter.ApplyBogofDiscount(2);
             discounter.ApplyComboDiscount(3, 0);
             return discounter.Discounts.ToArray();
@@ -39,7 +40,7 @@ namespace ShoppingBasket
             }
 
             // could add a parameter here to allow for different percentage discounts
-            public void ApplyPercentageDiscount(int productId)
+            public void ApplyOneThirdDiscount(int productId)
             {
                 if (!basketDictionary.ContainsKey(productId)) { return; }
                 var product = databaseService.GetProduct(productId);
