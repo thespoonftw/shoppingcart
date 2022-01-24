@@ -16,8 +16,9 @@ namespace ShoppingBasket
             this.discountService = discountService;
         }
 
-        public Basket CalculateBasket(Dictionary<int, int> basketItems)
-        {            
+        public Basket CalculateBasket(string basketString)
+        {
+            var basketItems = BasketStringToDictionary(basketString);
             var products = GetBasketProducts(basketItems);
             var subTotal = GetSubtotal(products);
             var discounts = discountService.GetDiscounts(basketItems);
@@ -25,15 +26,42 @@ namespace ShoppingBasket
 
             return new Basket()
             {
-                Total = total.ToPriceString(),
-                SubTotal = subTotal.ToPriceString(),
+                Total = total,
+                SubTotal = subTotal,
                 Products = products,
                 Discounts = discounts,
             };
-        }      
+        }
+
+        private Dictionary<int, int> BasketStringToDictionary(string basketString)
+        {
+            try
+            {
+                var returner = new Dictionary<int, int>();
+                if (basketString == "" || basketString == null)
+                {
+                    return returner;
+                }
+
+                var split = basketString.Split('_');
+                foreach (var s in split)
+                {
+                    var pair = s.Split('x');
+                    var amount = int.Parse(pair[0]);
+                    var product = int.Parse(pair[1]);
+                    returner.Add(product, amount);
+                }
+                return returner;
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+
+        }
 
         private BasketItem[] GetBasketProducts(Dictionary<int, int> basketDictionary)
-        {
+            {
             var productList = new List<BasketItem>();
             foreach (var pair in basketDictionary)
             {
@@ -60,4 +88,5 @@ namespace ShoppingBasket
             return subtotal - discounts.Sum(d => d.SumPrice);
         }
     }
+
 }

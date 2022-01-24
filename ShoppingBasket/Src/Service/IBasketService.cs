@@ -8,10 +8,10 @@ namespace ShoppingBasket
     public interface IBasketService
     {
         /// <summary>
-        /// Creates a populated Basket object from a dictionary of basket contents. To be sent to be displayed on front end.
+        /// Creates a populated Basket object from URI arguement. To be sent to be displayed on front end.
         /// </summary>
-        /// <param name="basketDictionary">Dictionary of objects in the basket. Key is productId, value is amount of object.</param>
+        /// <param name="basketString">Basket contents in form of string. Items seperated by _ and amounts seperated by x</param>
         /// <returns>Contents of basket, including total and discounts.</returns>
-        Basket CalculateBasket(Dictionary<int, int> basketDictionary);
+        Basket CalculateBasket(string uriArguement);
     }
 }

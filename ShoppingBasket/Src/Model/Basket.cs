@@ -14,8 +14,12 @@ namespace ShoppingBasket
 
         public BasketItem[] Discounts { get; set; }
 
-        public string SubTotal { get; set; }
+        public int SubTotal { get; set; }
 
-        public string Total { get; set; }
+        public string SubTotalString => SubTotal.ToPriceString();
+
+        public int Total { get; set; }
+
+        public string TotalString => Total.ToPriceString();
     }
 }

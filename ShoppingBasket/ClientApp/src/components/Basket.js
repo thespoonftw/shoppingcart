@@ -39,7 +39,7 @@ export function Basket(props) {
     if (!input) { return null; }    
     var stringBuilder = "";
     input.filter(p => p.count > 0).map(p =>
-      stringBuilder += p.productId + "-" + p.count + "_"
+      stringBuilder += p.count + "x" + p.productId + "_"
       );
     return stringBuilder.slice(0, -1);
   }
@@ -55,10 +55,10 @@ export function Basket(props) {
             { basketData ? 
               <div>
                 { basketData.products.map(item => renderBasketItem(item)) }
-                <p><b>Subtotal: </b>{basketData.subTotal}</p> 
+                <p><b>Subtotal: </b>{basketData.subTotalString}</p> 
                 <br></br>
                 { basketData.discounts.map(item => renderBasketItem(item)) }
-                <p><b>Total:</b> {basketData.total}</p>
+                <p><b>Total:</b> {basketData.totalString}</p>
               </div>        
             : 
             <p><b>Basket Is Empty</b></p>

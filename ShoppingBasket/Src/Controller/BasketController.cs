@@ -21,8 +21,7 @@ namespace ShoppingBasket.Controllers
         [Route("[controller]/{uri}")]
         public Basket Get(string uri) 
         {
-            var basketDictionary = UriConverter.BasketStringToDictionary(uri);
-            return basketService.CalculateBasket(basketDictionary);
+            return basketService.CalculateBasket(uri);
         }        
     }
 }
