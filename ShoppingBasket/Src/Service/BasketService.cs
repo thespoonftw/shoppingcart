@@ -2,6 +2,7 @@ using ShoppingBasket.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ShoppingBasket 
 {
@@ -35,6 +36,9 @@ namespace ShoppingBasket
 
         private Dictionary<int, int> BasketStringToDictionary(string basketString)
         {
+            if (basketString == null) throw new ArgumentException();
+            if (!Regex.IsMatch(basketString, @"^[0-9_x]*$")) throw new ArgumentException();
+
             try
             {
                 var returner = new Dictionary<int, int>();
@@ -66,6 +70,7 @@ namespace ShoppingBasket
             foreach (var pair in basketDictionary)
             {
                 var product = databaseService.GetProduct(pair.Key);
+                if (product == null) continue;
                 productList.Add(
                     new BasketItem()
                     {

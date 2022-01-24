@@ -3,31 +3,37 @@ using ShoppingBasket;
 
 namespace ShoppingBasket.UnitTest
 {
-    /*
     [TestClass]
     public class TestDatabase
     {
-        [TestMethod]
-        public void Negative_Index_OutOfRange()
+        private DatabaseService sut;
+
+        [TestInitialize]
+        public void TestInitialise()
         {
-            var service = new DatabaseService();
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => service.GetProduct(-1));
+            sut = new DatabaseService();
+        }
+
+        [DataTestMethod]
+        [DataRow(-1)]
+        [DataRow(9999)]
+        public void GetProduct_Is_Null(int productId)
+        {
+            Assert.IsNull(sut.GetProduct(productId));
+        }
+
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(1)]
+        public void GetProduct_Is_Not_Null(int productId)
+        {
+            Assert.IsNotNull(sut.GetProduct(productId));
         }
 
         [TestMethod]
-        public void Large_Index_Is_Null()
+        public void GetProducts_Is_Not_Zero()
         {
-            var service = new DatabaseService();
-            Assert.AreEqual(service.GetProduct(1000000), null);
-        }
-
-        [TestMethod]
-        public void Database_Not_Empty()
-        {
-            var service = new DatabaseService();
-            Assert.IsNotNull(service.GetProduct(0));
-
+            Assert.IsTrue(sut.GetAllProducts().Length > 0);
         }
     }
-    */
 }

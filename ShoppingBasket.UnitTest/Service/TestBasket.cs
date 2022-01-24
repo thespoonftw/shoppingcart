@@ -18,8 +18,8 @@ namespace ShoppingBasket.UnitTest
 
         [DataTestMethod]
         [DataRow("")]
-        [DataRow(null)]
-        public void Empty_Basket_Validation(string basketString)
+        [DataRow("1x9999")] // 9999 does not exist in database currently
+        public void Basket_Is_Empty(string basketString)
         {
             var basket = sut.CalculateBasket(basketString);
             Assert.AreEqual(basket.Products.Length, 0);
@@ -29,16 +29,21 @@ namespace ShoppingBasket.UnitTest
         }
 
         [DataTestMethod]
+        [DataRow(null)]
         [DataRow("1x4_2xh")]
         [DataRow("1x")]
         [DataRow("2_1")]
         [DataRow("_")]
+        [DataRow("x")]
+        [DataRow("-1x5")]
         public void Basket_Throws_ArguementException(string basketString)
         {
             Assert.ThrowsException<System.ArgumentException>(() => sut.CalculateBasket(basketString));
         }
 
         [DataTestMethod]
+        [DataRow("1x0", 110, 110)]
+        [DataRow("5x0", 550, 550)]
         // scenario 1: soup and 2 bread
         [DataRow("1x3_2x0", 280, 225)]
         // scenario 2: 3 cheeses
